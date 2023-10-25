@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Таймер на странице</title>
+</head>
+<body>
+    <div id="message">Вы находитесь на странице: 0 секунд</div>
+    <script>
+        const messageDisplay = document.getElementById("message");
+        let secondsOnPage = 0;
+        const maxSecondsOnPage = 30;
+
+        function updateMessage(seconds) 
+        {
+            messageDisplay.innerHTML = `Вы находитесь на странице: ${seconds} секунд`;
+        }
+
+        function startTimer() 
+        {
+            updateMessage(secondsOnPage);
+
+            const timerInterval = setInterval(function () 
+            {
+                secondsOnPage++;
+
+                if (secondsOnPage >= maxSecondsOnPage) 
+                {
+                    clearInterval(timerInterval);
+                    messageDisplay.innerHTML = "Страница устарела!";
+                } 
+                else 
+                {
+                    updateMessage(secondsOnPage);
+                }
+            }, 1000);
+        }
+
+        startTimer();
+    </script>
+</body>
+</html>

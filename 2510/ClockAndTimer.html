@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Часы и таймер</title>
+</head>
+<body>
+    <div class="clock">
+        <h1>Часы</h1>
+        <div id="clockDisplay"></div>
+    </div>
+
+    <div class="timer">
+        <h1>Таймер</h1>
+        <input type="text" id="countdown" placeholder="Введите время (в секундах)">
+        <button id="startTimer">Старт</button>
+        <div id="timerDisplay"></div>
+    </div>
+
+    <script>
+        function showTime() 
+        {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            const timeString = `${hours}:${minutes}:${seconds}`;
+            document.getElementById('clockDisplay').textContent = timeString;
+        }
+
+        function startTimer() 
+        {
+            const countdown = parseInt(document.getElementById('countdown').value);
+
+            if (isNaN(countdown)) 
+            {
+                alert('Введите корректное время в секундах.');
+                return;
+            }
+
+            let timeLeft = countdown;
+            const timerDisplay = document.getElementById('timerDisplay');
+
+            const timerInterval = setInterval(() => {
+                timerDisplay.textContent = `Осталось: ${timeLeft} секунд`;
+
+                if (timeLeft <= 0) 
+                {
+                    clearInterval(timerInterval);
+                    timerDisplay.textContent = 'Время истекло!';
+                } 
+                else 
+                {
+                    timeLeft--;
+                }
+            }, 1000);
+        }
+
+        setInterval(showTime, 1000);
+        document.getElementById('startTimer').addEventListener('click', startTimer);
+    </script>
+</body>
+</html>
